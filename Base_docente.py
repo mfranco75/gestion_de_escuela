@@ -1,5 +1,7 @@
 import pandas as pd
-from datetime import datetime
+
+from datetime import datetime , time
+#from flask import Flask, request, render_template_string
 
 path = "BASE DOCENTE 2024.xlsx"
 
@@ -39,29 +41,25 @@ for dia in ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO']:
             minutos_inicio = int(numeros[2:4])
             hora_fin = int(numeros[4:6])
             minutos_fin = int(numeros[6:]) 
-            print(f"Hora Inicio {hora_inicio} : {minutos_inicio}")
-            print(f"Hora Fin {hora_fin} : {minutos_fin}")
+            
         elif len(numeros) == 7: #ejemplo  900 a 1100
             hora_inicio = int(numeros[:1])
             minutos_inicio = int(numeros[1:3])
             hora_fin = int(numeros[3:5])
             minutos_fin = int(numeros[5:]) 
-            print(f"Hora Inicio {hora_inicio} : {minutos_inicio}")
-            print(f"Hora Fin {hora_fin} : {minutos_fin}")    
+             
         elif len(numeros) == 4: #ejemplo 19 a 23
             hora_inicio = int(numeros[:2])
             minutos_inicio = 0
             hora_fin = int(numeros[2:])
             minutos_fin = 0
-            print(f"Hora Inicio {hora_inicio} : {minutos_inicio}")
-            print(f"Hora Fin {hora_fin} : {minutos_fin}")
+            
         elif len(numeros) == 3: # #ejemplo 9 a 10
             hora_inicio = int(numeros[:1])
             minutos_inicio = 0
             hora_fin = int(numeros[1:])
             minutos_fin = 0
-            print(f"Hora Inicio {hora_inicio} : {minutos_inicio}")
-            print(f"Hora Fin {hora_fin} : {minutos_fin}")
+            
         else:
             hora_inicio = 0
             minutos_inicio = 0
@@ -75,53 +73,48 @@ for dia in ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO']:
             hora_fin_datetime = datetime.strptime(f"{hora_fin:02d}:{minutos_fin:02d}", "%H:%M")
             dataframe_docentes.loc[i,columna_inicio] = hora_inicio_datetime
             dataframe_docentes.loc[i,columna_fin] = hora_fin_datetime
-
-print(dataframe_docentes.loc[:, ['DOCENTE' , 'MATERIA' , 'LUNES_hora_inicio' , 'LUNES_hora_fin']])
-
-
-
-#funcion IA formatear horarios de las cursadas
-def limpiar_y_convertir_horario(horario_str):
-
-    """
-    Limpia la cadena de texto del horario y la convierte en un objeto datetime.
-
-    Args:
-        horario_str (str): Cadena de texto con el horario en formato "HHMM A HHMM".
-
-    Returns:
-        datetime.datetime: Objeto datetime representando el horario de inicio.
-    """
-  
-
-    # Eliminar espacios en blanco y separar la cadena en horas de inicio y fin
-    horario_limpio = horario_str.replace(" ", "").upper()
-    hora_inicio, hora_fin = horario_limpio[:4], horario_limpio[5:]
-
-    # Crear objetos datetime para el inicio y fin
-    formato_hora = "%H%M"
-    inicio = datetime.strptime(hora_inicio, formato_hora)
-    fin = datetime.strptime(hora_fin, formato_hora)
-
-    return inicio, fin
+        else:
+            hora_inicio = time(0, 0)
+            minutos_inicio = time(0, 0)
+            hora_fin = time(0, 0)
+            minutos_fin = time(0, 0)
+            dataframe_docentes.loc[i,columna_inicio] = hora_inicio
+            dataframe_docentes.loc[i,columna_fin] = hora_fin
 
 
+## FUNCIONES para buscar y filtrar
 
+# mostrar las materias dictadas por un docente espesífico
 
+#def buscar_materias_de_docente
 
-# Convertir las columnas de horario a tipo cadena (si es necesario)
-#for dia in ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO']:
-#   dataframe_docentes[dia] = dataframe_docentes[dia].astype(str)
-#   dataframe_docentes[dia] = dataframe_docentes[dia].fillna('').apply(limpiar_y_convertir_horario)
-
-# Aplicar funcion al DataFrame
-#for dia in ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO']:
-#    dataframe_docentes[dia] = dataframe_docentes[dia].astype(str)
-#    dataframe_docentes[dia] = dataframe_docentes[dia].fillna('').apply(limpiar_y_convertir_horario)
-
+# no anda!!!!
+#for dia in [dias]:
+#    for i in range(len(dataframe_docentes)):
+#        hora =dataframe_docentes.iloc[i , f'{dia}_hora_inicio']
+#        print(hora)
+#
+# 
 #print(dataframe_docentes.dtypes)
 
-#for dia in ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO']:
-#    if dataframe_docentes[dia].notnull :
-#        print(dataframe_docentes[dia])
 
+# Suponiendo que tienes tu DataFrame cargado en una variable llamada df
+# Y que las columnas tienen el formato "DIA_horario_inicio" y "DIA_horario_fin"
+
+print(dataframe_docentes.info())
+def imprimir_clases(df):
+    """Imprime las materias, docentes y horarios de las clases que comienzan después de las 00:00.
+
+    Args:
+        df (pandas.DataFrame): El DataFrame con los datos.
+    """
+
+    dias_semana = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO']
+    for index, row in df.iterrows():
+        for dia in dias_semana:
+            hora_inicio = row[f"{dia}_hora_inicio"]
+            if hora_inicio.hour > 0:
+                print(f"Materia: {row['MATERIA']}, Docente: {row['DOCENTE']}, Día: {dia}, Hora inicio: {hora_inicio.strftime("%H:%M")}")
+
+# Ejemplo de uso:
+imprimir_clases(dataframe_docentes)

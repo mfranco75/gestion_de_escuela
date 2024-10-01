@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Horarios</title>
+</head>
+<body>
+    <h1>Consulta de Horarios de Clases</h1>
+    <form action="/mostrar_horarios" method="post">
+        <label for="dia">Día de la semana:</label>
+        <input type="text" id="dia" name="dia" required>
+        <br>
+        <label for="hora">Hora (HH:MM):</label>
+        <input type="time" id="hora" name="hora" required>
+        <br>
+        <input type="submit" value="Consultar">
+    </form>
+    <div id="resultados">
+        <!-- Aquí se mostrarán los resultados -->
+        {{ tabla_resultados }}
+    </div>
+</body>
+</html>
