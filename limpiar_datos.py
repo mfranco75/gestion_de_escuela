@@ -32,10 +32,10 @@ def limpiar_dataframe(dataframe_docentes):
 
     # Eliminar caracteres no numéricos y convertir a entero LAS COLUMNAS DNI , CUIL y AÑO
 
-    dataframe_docentes['D.N.I'] = dataframe_docentes['D.N.I'].fillna(' ').astype(str)
+    dataframe_docentes['D.N.I'] = dataframe_docentes['D.N.I'].fillna(0).astype(str)
     dataframe_docentes['D.N.I'] = dataframe_docentes['D.N.I'].str.replace(r'\D', '', regex=True)
 
-    dataframe_docentes['CUIL'] = dataframe_docentes['CUIL'].fillna(' ').astype(str)
+    dataframe_docentes['CUIL'] = dataframe_docentes['CUIL'].fillna(0).astype(str)
     dataframe_docentes['CUIL'] = dataframe_docentes['CUIL'].str.replace(r'\D', '', regex=True)
 
     dataframe_docentes['AÑO'] = dataframe_docentes['AÑO'].fillna(' ').astype(str)

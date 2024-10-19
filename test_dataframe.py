@@ -20,12 +20,9 @@ dataframe = pd.read_excel(path)
 # llama a la funcion para limpiar y normalizar
 df_limpio =limpiar_dataframe(dataframe)
 
-print(df_limpio.info())
+print(df_limpio)
 
 
-
-#llama a la funcion para cargar los datos limpios a la tabla profesores de la BASE DE DATOS escuela
-print(df_limpio.info())
 
 
 

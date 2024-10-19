@@ -41,6 +41,8 @@ Connection.autocommit = True
 # Crear un cursor para ejecutar las consultas
 cursor = Connection.cursor()
 
+
+# MODIFICAR A PARTIR DE ESTE PUNTO
 # Función para insertar un registro si el apellido_nombre no existe
 def insertar_profesor(apellido_nombre, dni, cuil, celular, correo_abc):
     cursor.execute("SELECT EXISTS(SELECT 1 FROM profesores WHERE apellido_nombre = %s)", (apellido_nombre,))
