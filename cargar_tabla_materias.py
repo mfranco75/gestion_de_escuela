@@ -43,21 +43,7 @@ cursor = Connection.cursor()
 
 
 # MODIFICAR A PARTIR DE ESTE PUNTO
-# Función para insertar un registro si el apellido_nombre no existe
-def insertar_profesor(apellido_nombre, dni, cuil, celular, correo_abc):
-    cursor.execute("SELECT EXISTS(SELECT 1 FROM profesores WHERE apellido_nombre = %s)", (apellido_nombre,))
-    existe = cursor.fetchone()[0]
+# Función para insertar por cada fila el horario en la tabla 'horarios' y relacionarlo con la tabla 'materias' y la tabla 'profesores'
 
-    if not existe:
-        cursor.execute("INSERT INTO profesores (apellido_nombre, dni, cuil, celular, correo_abc) VALUES (%s, %s, %s, %s, %s)",
-                       (apellido_nombre, dni, cuil, celular, correo_abc))
 
-# Iterar sobre las filas del DataFrame y llamar a la función de inserción
-for index, row in df_limpio.iterrows():
-    insertar_profesor(row['DOCENTE'], row['D.N.I'], row['CUIL'], row['CEL'], row['CORREO ABC'])
-
-# Confirmar los cambios y cerrar la conexión
-Connection.commit()
-cursor.close()
-Connection.close()
 

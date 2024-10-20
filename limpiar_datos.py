@@ -42,6 +42,30 @@ def limpiar_dataframe(dataframe_docentes):
     dataframe_docentes['AÑO'] = dataframe_docentes['AÑO'].str.replace(r'\D', '', regex=True)
 
 
+    #Formatear la columna 'CARRERA' FOBA MUSICA
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace({'FOBA' : 'FOBA MUSICA','FOBA INSTR.' : 'FOBA MUSICA', 'FOBA CANTO': 'FOBA MUSICA'})
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace({'FOBA' : 'FOBA MUSICA','FOBA INSTR.' : 'FOBA MUSICA', 'FOBA CANTO': 'FOBA MUSICA'})
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('FOBA DZAS' , 'FOBA DANZA')
+    
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('PROF. DZA.CONT. (EX TRAY.FORM)' , 'TRAYECTO FORMATIVO EN DANZA CONTEMPORANEA')
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace({'PF. MUS.POP' : 'PROFESORADO EN MUSICA' , 'PR. MUSICA' : 'PROFESORADO EN MUSICA' })
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('PROF.D. FOLK.' , 'PROFESORADO EN DANZA FOLKLORICA')
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('PROF, EXP.COR' , 'PROFESORADO EN DANZA EXPRESION CORPORAL')
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace({'PROF D.CONT' : 'PROFESORADO EN DANZA CONTEMPORANEA' , 'PROF. D. CONT' : 'PROFESORADO EN DANZA CONTEMPORANEA'})
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('PROF D.CLAS.' , 'PROFESORADO EN DANZA CLASICA')
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('TECNICATURA DZA. CONT.' , 'TECNICATURA EN DANZAS CONTEMPORANEAS')
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('TECNICATURA MUS. POP.' , 'TECNICATURA EN MUSICA')
+
+
 
     # Crear las nuevas columnas
     for dia in dias:

@@ -22,7 +22,8 @@ df_limpio =limpiar_dataframe(dataframe)
 
 print(df_limpio)
 
-
+carreras = df_limpio['CARRERA'].unique()
+print(carreras)
 
 
 
