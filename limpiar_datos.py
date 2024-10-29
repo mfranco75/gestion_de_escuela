@@ -8,8 +8,7 @@ def limpiar_dataframe(dataframe_docentes):
     dataframe_docentes = dataframe_docentes.rename(columns={'BASE IPA -2024CARRERAS-ASIGNATURAS POR AÑO-HORAS-DOCENTES.CUPOF-CODIGO CARRERA-- HORARIOS':'MATERIA' , 'Unnamed: 13':'DOCENTE' , 'APELLIDO Y NOMBRE':'DOCENTE SUPLENTE'})
 
     #eliminar ultimas columnas
-    dataframe_docentes = dataframe_docentes.drop(['Unnamed: 31', 'Unnamed: 33','Unnamed: 34','Unnamed: 35','Unnamed: 36'] , axis=1)
-    dataframe_docentes = dataframe_docentes.drop(dataframe_docentes.columns[31], axis=1)
+    
     
     # eliminar filas con MATERIA vacía
     dataframe_docentes = dataframe_docentes.dropna(subset=['MATERIA'])
@@ -17,6 +16,7 @@ def limpiar_dataframe(dataframe_docentes):
     ## Limpiar apellidos y nombres de DOCENTE y SUPLENTE
     dataframe_docentes['DOCENTE'] = dataframe_docentes['DOCENTE'].astype(str)  # Convert to string if necessary
     dataframe_docentes['DOCENTE'] = dataframe_docentes['DOCENTE'].fillna('')  # Fill missing values
+
     dataframe_docentes['DOCENTE SUPLENTE'] = dataframe_docentes['DOCENTE SUPLENTE'].astype(str)  # Convert to string if necessary
     dataframe_docentes['DOCENTE SUPLENTE'] = dataframe_docentes['DOCENTE SUPLENTE'].fillna('')  # Fill missing values
     dataframe_docentes['DOCENTE'] = dataframe_docentes['DOCENTE'].str.rstrip()
@@ -24,6 +24,15 @@ def limpiar_dataframe(dataframe_docentes):
     # eliminar la coma entre apellido y nombre
     dataframe_docentes['DOCENTE'] = dataframe_docentes['DOCENTE'].str.replace(',', '')
     dataframe_docentes['DOCENTE SUPLENTE'] = dataframe_docentes['DOCENTE SUPLENTE'].str.replace(',', '')
+
+    # eliminar la comilla simple del apellido 
+    dataframe_docentes['DOCENTE'] = dataframe_docentes['DOCENTE'].str.replace("'", " ")
+    dataframe_docentes['DOCENTE SUPLENTE'] = dataframe_docentes['DOCENTE SUPLENTE'].str.replace("'", " ")
+
+
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].astype(str)  # Convert to string if necessary
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].fillna('')  # Fill missing values
+    dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].str.rstrip()
 
     
     # agregar columnas para inicio y fin de la clase en cada dia de la semana
@@ -38,7 +47,7 @@ def limpiar_dataframe(dataframe_docentes):
     dataframe_docentes['CUIL'] = dataframe_docentes['CUIL'].fillna(0).astype(str)
     dataframe_docentes['CUIL'] = dataframe_docentes['CUIL'].str.replace(r'\D', '', regex=True)
 
-    dataframe_docentes['AÑO'] = dataframe_docentes['AÑO'].fillna(' ').astype(str)
+    dataframe_docentes['AÑO'] = dataframe_docentes['AÑO'].fillna(0).astype(str)
     dataframe_docentes['AÑO'] = dataframe_docentes['AÑO'].str.replace(r'\D', '', regex=True)
 
 
@@ -65,8 +74,8 @@ def limpiar_dataframe(dataframe_docentes):
 
     dataframe_docentes['CARRERA'] = dataframe_docentes['CARRERA'].replace('TECNICATURA MUS. POP.' , 'TECNICATURA EN MUSICA')
 
-
-
+   
+    
     # Crear las nuevas columnas
     for dia in dias:
         for sufijo in sufijos:

@@ -1,6 +1,8 @@
-from limpiar_datos import limpiar_dataframe 
-#from cargar_tabla_profesores import cargar_tabla
 import pandas as pd
+
+from limpiar_datos import limpiar_dataframe 
+from reconocer_comisiones import extraer_comision
+
 
 
 # ESTE SISTEMA FUNCIONA A PARTIR DE LA ESTRUCTURA ACTUAL DE EL ARCHIVO EXCEL DE LA INSTITUCION
@@ -16,14 +18,23 @@ path = "BASE DOCENTE 2024.xlsx"
 
 #convierte el excel en un DataFrame
 dataframe = pd.read_excel(path)
+print(dataframe.info())
 
-# llama a la funcion para limpiar y normalizar
-df_limpio =limpiar_dataframe(dataframe)
+#llama a la funcion para limpiar y normalizar
+df_limpio = limpiar_dataframe(dataframe)
 
-print(df_limpio)
+df_con_comisiones = extraer_comision(df_limpio)
 
-carreras = df_limpio['CARRERA'].unique()
-print(carreras)
+df_muestra = df_con_comisiones[['MATERIA', 'DOCENTE SUPLENTE', 'AÑO']].sample(n=150)
+
+#Imprimir el DataFrame resultante
+print(df_muestra)
+
+
+
+
+
+
 
 
 
