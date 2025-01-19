@@ -1,7 +1,7 @@
 <em> Gestión de Escuela </em>
 
 Este proyecto parte de la necesidad de organizar los datos existentes de una Escuela y transformarlos en datos útiles para poder crear aplicaciones de consulta para estudiantes, profesores y directivos de la institucion.
-Se parte de la base de que todos los datos estan cargados en planillas de excel que se editan y modifican desde la secretaria de la escuela, y tambien de otras planillas de excel que son generadas en la mariculación a partir de una carga inicial a traves de distintos formulario de google.
+Se parte de la base de que todos los datos estan cargados en planillas de excel que se editan y modifican desde la secretaria de la escuela, y tambien de otras planillas de excel que son generadas en la matriculación a partir de una carga inicial a traves de distintos formularios de google.
 Entonces los datos estan distribuidos en distintos archivos que no estan relacionados y resulta muy difícil poder establecer relaciones y consultas.
 </p>PRIMER TAREA: descargar, normalizar y formatear los datos 
 </p>El primer paso del proyecto consistió en descargar manualmente el archico "BESE DOCENTE 2024.xlsl" y escribir un codigo en python para transformarlo en un DataFrame con pandas.
